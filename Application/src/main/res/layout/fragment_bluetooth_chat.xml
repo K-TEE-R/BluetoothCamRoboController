@@ -14,56 +14,44 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
 
+        <Button
+            android:id="@+id/button_forward"
+            android:layout_weight="1"
+            android:text="Foward" />
+    </TableRow>
 
-    <Button
-        android:id="@+id/button_forward"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="168dp"
-        android:text="Foward"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/button_left"
+            android:layout_weight="1"
+            android:text="Left" />
+        <Button
+            android:id="@+id/button_right"
+            android:layout_weight="1"
+            android:text="Right" />
+    </TableRow>
 
-    <Button
-        android:id="@+id/button_left"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="216dp"
-        android:text="Left"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_back"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="264dp"
-        android:text="Back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_right"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="236dp"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="216dp"
-        android:text="Right"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/button_back"
+            android:layout_weight="1"
+            android:text="Back" />
+    </TableRow>
+</TableLayout>

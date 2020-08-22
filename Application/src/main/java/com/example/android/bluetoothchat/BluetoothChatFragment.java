@@ -27,13 +27,17 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,6 +47,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.common.logger.Log;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 /**
  * This fragment controls Bluetooth to communicate with other devices.
@@ -57,11 +63,10 @@ public class BluetoothChatFragment extends Fragment {
     private static final int REQUEST_ENABLE_BT = 3;
 
     // Layout Views
-    private Button mSendButton;
     private Button mForwardButton;
-    private Button mBackButton;
-    private Button mRightButton;
     private Button mLeftButton;
+    private Button mRightButton;
+    private Button mBackButton;
 
     /**
      * Name of the connected device
@@ -146,9 +151,19 @@ public class BluetoothChatFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mForwardButton = (Button) view.findViewById(R.id.button_forward);
+        mLeftButton = (Button) view.findViewById(R.id.button_left);
         mRightButton = (Button) view.findViewById(R.id.button_right);
         mBackButton = (Button) view.findViewById(R.id.button_back);
-        mLeftButton = (Button) view.findViewById(R.id.button_left);
+
+
+        WindowManager wm = (WindowManager)getActivity().getSystemService(WINDOW_SERVICE);
+        Display dp = wm.getDefaultDisplay();
+        int height = (int)(dp.getHeight()/3);
+
+        mForwardButton.setHeight(height);
+        mLeftButton.setHeight(height);
+        mRightButton.setHeight(height);
+        mBackButton.setHeight(height);
     }
 
     /**
@@ -157,44 +172,57 @@ public class BluetoothChatFragment extends Fragment {
     private void setupChat() {
         Log.d(TAG, "setupChat()");
 
-        mForwardButton.setOnClickListener(new View.OnClickListener() {
+        mForwardButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                View view = getView();
-                if (null != view) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     sendMessage("forward\n");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    sendMessage("brake\n");
                 }
+                return true;
             }
+
         });
 
-        mRightButton.setOnClickListener(new View.OnClickListener() {
+        mLeftButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                View view = getView();
-                if (null != view) {
-                    sendMessage("right\n");
-                }
-            }
-        });
-
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = getView();
-                if (null != view) {
-                    sendMessage("back\n");
-                }
-            }
-        });
-
-        mLeftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = getView();
-                if (null != view) {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     sendMessage("left\n");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    sendMessage("brake\n");
                 }
+                return true;
             }
+
+        });
+
+        mRightButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    sendMessage("right\n");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    sendMessage("brake\n");
+                }
+                return true;
+            }
+
+        });
+
+
+        mBackButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    sendMessage("back\n");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    sendMessage("brake\n");
+                }
+                return true;
+            }
+
         });
 
         // Initialize the BluetoothChatService to perform bluetooth connections
