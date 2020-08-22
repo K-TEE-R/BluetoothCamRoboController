@@ -189,7 +189,7 @@ public class BluetoothChatFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    sendMessage("left\n");
+                    sendMessage("right\n");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     sendMessage("brake\n");
                 }
@@ -202,7 +202,7 @@ public class BluetoothChatFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    sendMessage("right\n");
+                    sendMessage("left\n");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     sendMessage("brake\n");
                 }
